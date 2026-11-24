@@ -13,6 +13,7 @@ module tb_tetris_top;
   reg           BTNR = 0;
   reg           BTND = 0;
   reg  [15:0]   SW = 0;
+  reg           UART_TXD_IN = 1;  // UART idle
   wire [15:0]   LED;
   wire          CA;
   wire          CB;
@@ -39,6 +40,7 @@ module tb_tetris_top;
     .BTNR(BTNR),
     .BTND(BTND),
     .SW(SW),
+    .UART_TXD_IN(UART_TXD_IN),
     .LED(LED),
     .CA(CA),
     .CB(CB),

@@ -7,12 +7,20 @@
 module tb_game_fsm;
   reg           clk = 0;
   reg           rst = 0;
-  reg  [4:0]    btn_pulse = 0;
+  reg           move_left = 0;
+  reg           move_right = 0;
+  reg           rotate = 0;
+  reg           pause = 0;
+  reg           chaos_reverse = 0;
   reg           tick_fall = 0;
   reg           collide = 0;
-  reg           clear_done = 0;
   reg  [2:0]    new_type = 0;
+  reg           bomb_req = 0;
+  reg           clear_shift_req = 0;
+  reg  [4:0]    clear_shift_row = 0;
+  reg           clear_done = 0;
   wire [2:0]    game_state;
+  wire          playing;
   wire [2:0]    piece_type;
   wire [2:0]    next_type;
   wire [1:0]    piece_rot;
@@ -21,20 +29,35 @@ module tb_game_fsm;
   wire [4:0]    test_x;
   wire [4:0]    test_y;
   wire [1:0]    test_rot;
-  wire          lock_we;
+  wire          board_we;
+  wire [3:0]    board_wx;
+  wire [4:0]    board_wy;
+  wire [2:0]    board_wdata;
+  wire          board_shift_en;
+  wire [4:0]    board_shift_row;
   wire          start_clear;
+  wire          piece_locked;
+  wire          bomb_done;
   wire          lfsr_step;
   integer errors = 0;
 
   game_fsm dut (
     .clk(clk),
     .rst(rst),
-    .btn_pulse(btn_pulse),
+    .move_left(move_left),
+    .move_right(move_right),
+    .rotate(rotate),
+    .pause(pause),
+    .chaos_reverse(chaos_reverse),
     .tick_fall(tick_fall),
     .collide(collide),
-    .clear_done(clear_done),
     .new_type(new_type),
+    .bomb_req(bomb_req),
+    .clear_shift_req(clear_shift_req),
+    .clear_shift_row(clear_shift_row),
+    .clear_done(clear_done),
     .game_state(game_state),
+    .playing(playing),
     .piece_type(piece_type),
     .next_type(next_type),
     .piece_rot(piece_rot),
@@ -43,8 +66,15 @@ module tb_game_fsm;
     .test_x(test_x),
     .test_y(test_y),
     .test_rot(test_rot),
-    .lock_we(lock_we),
+    .board_we(board_we),
+    .board_wx(board_wx),
+    .board_wy(board_wy),
+    .board_wdata(board_wdata),
+    .board_shift_en(board_shift_en),
+    .board_shift_row(board_shift_row),
     .start_clear(start_clear),
+    .piece_locked(piece_locked),
+    .bomb_done(bomb_done),
     .lfsr_step(lfsr_step)
   );
 

@@ -8,7 +8,8 @@
 //   input           BTNL         
 //   input           BTNR         
 //   input           BTND         
-//   input  [15:0]   SW           
+//   input  [15:0]   SW           SW0 reset, SW1 power-up select, SW2 demo timer, SW15 pause
+//   input           UART_TXD_IN  UART from the USB-UART bridge (laptop -> FPGA), idle 1
 //   output [15:0]   LED          
 //   output          CA           
 //   output          CB           
@@ -35,6 +36,7 @@ module tetris_top (
   input  wire          BTNR,
   input  wire          BTND,
   input  wire [15:0]   SW,
+  input  wire          UART_TXD_IN,
   output wire [15:0]   LED,
   output wire          CA,
   output wire          CB,

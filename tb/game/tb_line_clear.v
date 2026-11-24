@@ -11,7 +11,7 @@ module tb_line_clear;
   reg  [599:0]  board = 0;
   wire          busy;
   wire          done;
-  wire          shift_en;
+  wire          shift_req;
   wire [4:0]    shift_row;
   wire [2:0]    lines_cleared;
   integer errors = 0;
@@ -23,7 +23,7 @@ module tb_line_clear;
     .board(board),
     .busy(busy),
     .done(done),
-    .shift_en(shift_en),
+    .shift_req(shift_req),
     .shift_row(shift_row),
     .lines_cleared(lines_cleared)
   );

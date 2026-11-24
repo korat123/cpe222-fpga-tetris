@@ -18,7 +18,17 @@ module tb_vga_renderer;
   reg  [4:0]    piece_y = 0;
   reg  [23:0]   score_bcd = 0;
   reg  [3:0]    level = 0;
+  reg  [3:0]    combo = 0;
   reg  [2:0]    game_state = 0;
+  reg  [3:0]    charges = 0;
+  reg           select_level = 0;
+  reg           freeze_active = 0;
+  reg  [2:0]    freeze_remaining = 0;
+  reg           chaos_reverse = 0;
+  reg           chaos_fast = 0;
+  reg  [4:0]    chaos_countdown = 0;
+  reg  [2:0]    chaos_remaining = 0;
+  reg           paused = 0;
   wire [3:0]    vga_r;
   wire [3:0]    vga_g;
   wire [3:0]    vga_b;
@@ -38,7 +48,17 @@ module tb_vga_renderer;
     .piece_y(piece_y),
     .score_bcd(score_bcd),
     .level(level),
+    .combo(combo),
     .game_state(game_state),
+    .charges(charges),
+    .select_level(select_level),
+    .freeze_active(freeze_active),
+    .freeze_remaining(freeze_remaining),
+    .chaos_reverse(chaos_reverse),
+    .chaos_fast(chaos_fast),
+    .chaos_countdown(chaos_countdown),
+    .chaos_remaining(chaos_remaining),
+    .paused(paused),
     .vga_r(vga_r),
     .vga_g(vga_g),
     .vga_b(vga_b)

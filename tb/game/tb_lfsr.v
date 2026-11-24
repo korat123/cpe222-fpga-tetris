@@ -11,6 +11,7 @@ module tb_lfsr;
   reg  [15:0]   seed = 0;
   reg           step = 0;
   wire [2:0]    piece_type;
+  wire [1:0]    rand_bits;
   integer errors = 0;
 
   lfsr dut (
@@ -19,7 +20,8 @@ module tb_lfsr;
     .seed_load(seed_load),
     .seed(seed),
     .step(step),
-    .piece_type(piece_type)
+    .piece_type(piece_type),
+    .rand_bits(rand_bits)
   );
 
   always #5 clk = ~clk;  // 100 MHz

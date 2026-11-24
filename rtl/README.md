@@ -6,16 +6,20 @@
 
 | Module | Folder | Owner | Status (stub / sim-pass / board-pass) |
 |---|---|---|---|
-| clock_enable | common | Korat | stub |
+| timers | common | Teerawit | stub |
+| uart_rx | io | Pholawath | stub |
+| host_input | io | Pholawath | stub |
 | button_control | io | Pholawath | stub |
-| seven_segment | io | Nassasi | stub |
-| vga_sync | video | Korat | stub |
-| vga_renderer | video | Korat | stub |
+| seven_segment | io | Pholawath | stub |
+| vga_sync | video | Nassasi | stub |
+| vga_renderer | video | Nassasi | stub |
+| tetromino | game | Korat | stub |
+| collision | game | Korat | stub |
+| line_clear | game | Korat | stub |
 | board_memory | game | Korat | stub |
-| tetromino | game | Teerawit | stub |
-| collision | game | Teerawit | stub |
+| game_fsm | game | Teerawit | stub |
 | lfsr | game | Teerawit | stub |
-| game_fsm | game | Pornnapat | stub |
-| line_clear | game | Pornnapat | stub |
-| score_level | game | Nassasi | stub |
+| chaos_controller | game | Teerawit | stub |
+| powerup_controller | game | Pornnapat | stub |
+| score_combo | game | Pholawath | stub |
 | tetris_top | top | Pholawath | stub |

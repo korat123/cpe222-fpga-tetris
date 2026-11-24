@@ -1,12 +1,19 @@
-# AGENTS.md — FPGA Tetris (CPE222)
+# AGENTS.md — CHAOTETRIS, FPGA Tetris (CPE222)
 
 Instructions for ALL AI coding agents (Claude Code, Codex, Copilot, Cursor, Gemini, Jules…) and a
 cheat-sheet for humans. If anything here conflicts with a teammate's instruction in the issue/PR,
 STOP and ask in the issue. Keep this file under 200 lines.
 
 ## 1. Project
-- Graded university project: Tetris in Verilog-2001 on Digilent Nexys A7-100T
-  (Artix-7, part xc7a100tcsg324-1), AMD Vivado. VGA 640x480@60, buttons, 7-seg, LEDs.
+- Graded university project: CHAOTETRIS, an arcade falling-block game in Verilog-2001 on Digilent
+  Nexys A7-100T (Artix-7, part xc7a100tcsg324-1), AMD Vivado. VGA 640x480@60, 7-seg, LEDs.
+- Core: 7 tetrominoes, 10x20 board, move/rotate/soft drop, collision, line clear, score, rising level.
+  Signature features: power-up charges (+1 per 5 lines) for BOMB (clears locked cells in a 3x3 area)
+  and FREEZE (no auto-fall for 5 s); CHAOS event every 30 s for 5 s (reversed L/R or double speed,
+  picked by LFSR); COMBO bonus; demo timer switch. Spec: docs/INTERFACES.md, docs/ARCHITECTURE.md.
+- Controls: laptop keyboard / game controller via scripts/host/bridge.py over UART
+  (docs/input-controller.md). Board buttons are backup: BTNL/BTNR move, BTNU rotate, BTND soft drop,
+  BTNC use power-up selected by SW1. SW0 reset, SW2 demo timer, SW15 pause. LED15 = host link.
 - Optional special features (P5 only) go in rtl/features/ and must be switchable off by a parameter.
 - Deadlines: final proposal 2026-11-30; presentation + submission 2026-12-11. Feature freeze at P4.
 - Owners: see README "Team" table and .github/CODEOWNERS. Owners are the default, not a lock —
@@ -33,14 +40,17 @@ Run the relevant checks before proposing a commit. Never claim tests pass withou
 
 ## 4. RTL rules (non-negotiable)
 - ONE clock: `clk` (100 MHz). Never generate clocks from logic or use a counter bit as a clock.
-  Slower rates = one-cycle enable pulses from clock_enable (`tick_pixel`, `tick_fall`).
-- Reset: `rst`, synchronous, active-high. Only tetris_top converts board CPU_RESETN (active-low).
+  Slower rates = one-cycle enable pulses from timers (`tick_pixel`, `tick_fall`, `tick_second`).
+  Pause/freeze gate these enables, never the clock.
+- Reset: `rst`, synchronous, active-high. Only tetris_top makes it (CPU_RESETN active-low, SW0).
+- Only game_fsm changes the board; power-up, chaos and line_clear modules only send requests.
 - Sequential: `always @(posedge clk)` with `<=` only. Combinational: `always @*` with `=`,
   default assignments first (no latches). No `initial` blocks in RTL.
 - Names: lower_snake_case; file name = module name; `_q` registered, `_next` next-state,
   `_n` active-low, UPPER_SNAKE parameters/macros, `S_` FSM states, `u_` instance prefix.
 - Every RTL file starts with `` `default_nettype none `` and ends with `` `default_nettype wire ``.
-- Buttons are synchronized + debounced ONLY in button_control. Only tetris_top touches board pins.
+- Buttons and SW1/SW2/SW15 are synchronized + debounced (and OR-ed with host keys) ONLY in
+  button_control. Only tetris_top touches board pins.
 - No vendor primitives/IP without a decision record in docs/decisions/.
 
 ## 5. Interface contract
