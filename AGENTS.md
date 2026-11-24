@@ -24,7 +24,7 @@ rtl/{common,io,video,game,features,top}/  synthesizable RTL, one module per file
 rtl/include/tetris_defs.vh                 shared constants
 tb/<same area>/tb_<module>.v               self-checking testbenches; tb/vectors/<module>/ data
 constraints/nexys_a7_100t.xdc              the ONLY XDC
-scripts/{vivado,sim,ci,github}/            automation
+scripts/{vivado,sim,ci,github,host}/       automation; host/ = laptop bridge (Python)
 docs/INTERFACES.md                         port contract (source of truth for module ports)
 docs/{ARCHITECTURE,TESTING,CONTRIBUTIONS}.md, docs/{decisions,meetings,diagrams,proposal,report,slides}/
 media/{waveforms/<module>,board,ui}/       small images only; videos are links in media/VIDEOS.md
@@ -67,7 +67,7 @@ Run the relevant checks before proposing a commit. Never claim tests pass withou
 
 ## 7. File placement (decide before creating ANY file)
 generated? → don't commit (build/) | RTL → rtl/<area>/ | sim-only → tb/<area>/ |
-constraint → the existing XDC | script → scripts/<vivado|sim|ci|github>/ | writing → docs/<subfolder>/ |
+constraint → the existing XDC | script → scripts/<vivado|sim|ci|github|host>/ | writing → docs/<subfolder>/ |
 image → media/ (PNG/JPG < 1 MB, YYYYMMDD-desc.png) | video → link in media/VIDEOS.md |
 external code → third_party/<name>/ + THIRD_PARTY_NOTICES.md | none fits → ask in the issue.
 Never create files in the repo root. Never add a second XDC, a sandbox folder, or copies like
