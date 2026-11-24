@@ -1,0 +1,86 @@
+# .github/workflows/ci.yml — FPGA Tetris (CPE222)
+# Runs on every PR and on every push to main.
+#   layout : files in the right folders, no generated files, every module has a testbench
+#   lint   : Verilator lint of synthesizable RTL
+#   sim    : run every testbench with Icarus Verilog (must print TB_PASS)
+#   synth  : (optional) Yosys generic synthesis — catches code that cannot become hardware
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+# (1) If someone pushes again to the same PR/branch, cancel the older run.
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+env:
+  # (2) Lint strictness. "false" during P1 while modules are stubs (warnings don't fail CI).
+  #     Change to "true" when P2 starts — then any warning fails the lint job.
+  LINT_STRICT: "false"
+
+jobs:
+  layout:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check file placement and naming
+        run: python3 scripts/ci/check_layout.py
+
+  lint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Verilator
+        run: sudo apt-get update && sudo apt-get install -y verilator
+      - name: Verilator lint (synthesizable RTL, optional features excluded)
+        run: |
+          FLAGS="--lint-only -Wall -Wno-DECLFILENAME -Irtl/include"
+          if [ "$LINT_STRICT" != "true" ]; then FLAGS="$FLAGS -Wno-fatal"; fi
+          verilator $FLAGS \
+            $(find rtl -name '*.v' ! -path 'rtl/features/*') --top-module tetris_top
+
+  sim:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Icarus Verilog
+        run: sudo apt-get update && sudo apt-get install -y iverilog
+      - name: Run all testbenches
+        run: bash scripts/sim/run_all.sh
+      - name: Upload simulation logs (only when something failed)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sim-logs
+          path: build/sim/
+
+  # (3) Optional synthesis check with Yosys.
+  #     Vivado is too large for GitHub runners; Yosys checks that the RTL is synthesizable.
+  #     Starts as NON-BLOCKING (continue-on-error). From P3, set continue-on-error: false
+  #     and add "synth" to the required status checks in the ruleset.
+  synth:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Yosys
+        run: sudo apt-get update && sudo apt-get install -y yosys
+      - name: Generic synthesis of tetris_top
+        run: |
+          mkdir -p build/synth
+          FILES=$(find rtl -name '*.v' ! -path 'rtl/features/*' | tr '\n' ' ')
+          yosys -q -l build/synth/yosys.log \
+            -p "read_verilog -Irtl/include $FILES; synth -top tetris_top; check -assert; stat"
+      - name: Upload synthesis log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: synth-log
+          path: build/synth/yosys.log

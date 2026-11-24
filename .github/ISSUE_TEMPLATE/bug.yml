@@ -1,0 +1,16 @@
+name: Bug
+description: สิ่งที่ทำงานผิด
+labels: ["type:fix"]
+body:
+  - type: textarea
+    id: what
+    attributes: { label: อาการ }
+    validations: { required: true }
+  - type: textarea
+    id: repro
+    attributes: { label: "ทำซ้ำอย่างไร", value: "1. " }
+    validations: { required: true }
+  - type: dropdown
+    id: where
+    attributes: { label: "เกิดที่ไหน", options: ["Simulation", "บนบอร์ด", "ทั้งสองที่"] }
+    validations: { required: true }

@@ -1,0 +1,19 @@
+name: Task / งาน
+description: งาน 1 ชิ้นในแผน (โมดูล, การรวมระบบ, เอกสาร)
+labels: ["type:feat"]
+body:
+  - type: input
+    id: files
+    attributes: { label: "ไฟล์/โมดูลที่เกี่ยวข้อง", placeholder: "rtl/video/vga_sync.v, tb/video/tb_vga_sync.v" }
+    validations: { required: true }
+  - type: dropdown
+    id: phase
+    attributes: { label: Phase, options: [P0, P1, P2, P3, P4, P5, P6] }
+    validations: { required: true }
+  - type: textarea
+    id: done
+    attributes: { label: "เสร็จเมื่อ (เช็คลิสต์ที่ทดสอบได้)", value: "- [ ] \n- [ ] testbench ผ่าน\n- [ ] แนบหลักฐานใน PR" }
+    validations: { required: true }
+  - type: textarea
+    id: interface
+    attributes: { label: "กระทบ interface ของคนอื่นไหม (ถ้ามี)" }

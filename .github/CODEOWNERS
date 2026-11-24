@@ -1,0 +1,20 @@
+# Who gets AUTO-REQUESTED as reviewer. In our flexible mode review is NOT required —
+# this just tells GitHub whom to notify. Replace the @handles with real GitHub usernames.
+*                               @korat-gh @pholawath-gh
+/rtl/common/                    @korat-gh
+/rtl/video/                     @korat-gh
+/rtl/game/board_memory.v        @korat-gh
+/rtl/game/score_level.v         @nassasi-gh
+/rtl/io/seven_segment.v         @nassasi-gh
+/rtl/game/tetromino.v           @teerawit-gh
+/rtl/game/collision.v           @teerawit-gh
+/rtl/game/lfsr.v                @teerawit-gh
+/rtl/game/game_fsm.v            @pornnapat-gh
+/rtl/game/line_clear.v          @pornnapat-gh
+/rtl/io/button_control.v        @pholawath-gh
+/rtl/top/                       @pholawath-gh
+/rtl/features/                  @korat-gh @pholawath-gh
+/tb/                            @pornnapat-gh
+/constraints/                   @pholawath-gh
+/docs/                          @nassasi-gh
+/docs/INTERFACES.md             @korat-gh @nassasi-gh @teerawit-gh @pornnapat-gh @pholawath-gh

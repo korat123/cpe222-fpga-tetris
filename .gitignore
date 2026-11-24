@@ -1,0 +1,58 @@
+# ===== Build output (everything generated goes here) =====
+/build/
+
+# ===== Vivado (in case a project is created outside build/) =====
+*.xpr
+*.cache/
+*.runs/
+*.hw/
+*.sim/
+*.gen/
+*.ip_user_files/
+*.srcs/
+*.tmp/
+.Xil/
+*.jou
+*.log
+*.str
+*.backup.*
+vivado_pid*
+webtalk*
+usage_statistics_webtalk.*
+*.dcp
+*.wdb
+*.pb
+*.bit
+*.bin
+*.mcs
+*.prm
+*.ltx
+*.rpt
+
+# ===== Simulation outputs =====
+*.vcd
+*.fst
+*.vvp
+a.out
+xsim.dir/
+obj_dir/
+sim_build/
+
+# ===== Editors / personal AI files / OS =====
+__pycache__/
+.vscode/
+.idea/
+*.swp
+*~
+CLAUDE.local.md
+AGENTS.override.md
+.claude/settings.local.json
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ===== Media that must not enter git (host videos outside, link in media/VIDEOS.md) =====
+*.mp4
+*.mov
+*.mkv
+*.zip
