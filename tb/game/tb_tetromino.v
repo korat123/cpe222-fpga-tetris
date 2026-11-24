@@ -102,11 +102,20 @@ module tb_tetromino;
         end else begin
           `CHECK(m == exp[t*4 + r], "shape differs from the expected table")
           `CHECK(ones(m) == 4, "piece must have exactly 4 distinct cells")
-          if (box == 3) `CHECK((m & ~16'h0777) == 16'd0, "3x3 piece left its 3x3 box")
-          if (r == 0) spawn[t] = m;
-          else if (t == `P_O) `CHECK(m == prev, "O must not change when rotated")
-          else `CHECK(m == rot_cw(prev, box), "rotation is not 90 degrees clockwise (SRS)")
-          if (r == 3 && t != `P_O) `CHECK(rot_cw(m, box) == spawn[t], "4 rotations must return to rot 0")
+          // begin/end around every `CHECK: the macro is an if, so a bare else would bind to it
+          if (box == 3) begin
+            `CHECK((m & ~16'h0777) == 16'd0, "3x3 piece left its 3x3 box")
+          end
+          if (r == 0) begin
+            spawn[t] = m;
+          end else if (t == `P_O) begin
+            `CHECK(m == prev, "O must not change when rotated")
+          end else begin
+            `CHECK(m == rot_cw(prev, box), "rotation is not 90 degrees clockwise (SRS)")
+          end
+          if (r == 3 && t != `P_O) begin
+            `CHECK(rot_cw(m, box) == spawn[t], "4 rotations must return to rot 0")
+          end
         end
         if (errors != 0 && m != exp[t*4 + r])
           $display("  type %0d rot %0d: got mask %h, expected %h", t, r, m, exp[t*4 + r]);
