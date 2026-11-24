@@ -16,7 +16,7 @@
 | tetromino | game | Korat | sim-pass |
 | collision | game | Korat | stub |
 | line_clear | game | Korat | stub |
-| board_memory | game | Korat | stub |
+| board_memory | game | Korat | sim-pass |
 | game_fsm | game | Teerawit | stub |
 | lfsr | game | Teerawit | stub |
 | chaos_controller | game | Teerawit | stub |
