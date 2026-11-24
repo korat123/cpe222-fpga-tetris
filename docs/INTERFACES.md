@@ -39,12 +39,13 @@ power-up use during chaos.
 | output | 1 | `tick_fall` | 1-cycle pulse: one gravity step |
 | output | 1 | `tick_second` | 1-cycle pulse every game second; off while paused |
 
-## `button_control` — `rtl/io/button_control.v` — owner: Pholawath
+## `button_control` — `rtl/io/button_control.v` — owner: Korat
 
 | Parameter | Default | Meaning |
 |---|---|---|
 | `REPEAT_DELAY_CLKS` | 20_000_000 | hold time before L/R auto-repeat (200 ms) |
 | `REPEAT_RATE_CLKS` | 8_000_000 | L/R auto-repeat period (80 ms) |
+| `DEBOUNCE_CLKS` | 1_000_000 | board button / switch must be stable this long (10 ms) |
 
 | Dir | Width | Port | Meaning |
 |---|---|---|---|
@@ -55,18 +56,18 @@ power-up use during chaos.
 | input | 1 | `sw_pause` | raw SW15: 1 = paused |
 | input | 1 | `sw_demo` | raw SW2: 1 = demo timer |
 | input | [5:0] | `host_keys` | from host_input, level {FREEZE,BOMB,SOFT_DROP,ROTATE,RIGHT,LEFT} |
-| input | 1 | `link_ok` | from host_input: 1 = laptop connected |
+| input | 1 | `link_ok` | from host_input: 1 = laptop connected; host_keys are ignored while 0 |
 | output | 1 | `move_left` | 1-cycle pulse per press + auto-repeat; none while L and R both held |
 | output | 1 | `move_right` | 1-cycle pulse per press + auto-repeat; none while L and R both held |
 | output | 1 | `rotate` | 1-cycle pulse per press, no repeat |
 | output | 1 | `soft_drop` | level: board BTND OR host SOFT_DROP, debounced |
-| output | 1 | `use_bomb` | 1-cycle pulse: host BOMB, or BTNC with SW1 = 0 |
+| output | 1 | `use_bomb` | 1-cycle pulse: host BOMB, or BTNC with SW1 = 0 (SW1 read at the moment BTNC is pressed) |
 | output | 1 | `use_freeze` | 1-cycle pulse: host FREEZE, or BTNC with SW1 = 1 |
 | output | 1 | `pause_level` | level: synchronized SW15 (1 = paused) |
 | output | 1 | `select_level` | level: synchronized SW1 (for the UI) |
 | output | 1 | `demo_level` | level: synchronized SW2 (to timers) |
 
-## `uart_rx` — `rtl/io/uart_rx.v` — owner: Pholawath
+## `uart_rx` — `rtl/io/uart_rx.v` — owner: Korat
 
 | Parameter | Default | Meaning |
 |---|---|---|
@@ -81,7 +82,7 @@ power-up use during chaos.
 | output | 1 | `rx_valid` | 1-cycle pulse per byte with a good stop bit |
 | output | 1 | `rx_error` | 1-cycle pulse: bad stop bit, byte dropped |
 
-## `host_input` — `rtl/io/host_input.v` — owner: Pholawath
+## `host_input` — `rtl/io/host_input.v` — owner: Korat
 
 | Parameter | Default | Meaning |
 |---|---|---|

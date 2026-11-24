@@ -3,6 +3,9 @@
 *                                   @korat123 @XbunGam
 /rtl/common/timers.v                @Atom7792
 /rtl/io/                            @XbunGam
+/rtl/io/uart_rx.v                   @korat123
+/rtl/io/host_input.v                @korat123
+/rtl/io/button_control.v            @korat123
 /rtl/video/                         @miranassasi
 /rtl/game/tetromino.v               @korat123
 /rtl/game/collision.v               @korat123

@@ -4,6 +4,9 @@
 |---|---|---|---|---|
 | tetromino | tb_tetromino | all 28 type×rotation entries vs expected 4×4 masks · SRS clockwise rule (and 4 turns = start) · 4 distinct cells · 3×3 pieces stay in 3×3 box · type 0 = empty · 7 distinct spawn shapes | pass | — |
 | board_memory | tb_board_memory | reference model compared after every clock · single write appears after 1 edge · 4 corners by raw bit index · overwrite with 0, we = 0 · out-of-range writes ignored · shift bottom/middle/top row, row 0 empty, rows below unchanged · shift_row ≥ 20 ignored · shift beats same-cycle write · bomb-style 3×3 clear at corners (0,19) and (9,0) · reset clears all | pass | — |
+| uart_rx | tb_uart_rx | `send_byte` drives rx bit by bit · 0x80/0x81/0xBF · back-to-back bytes · bad stop bit → rx_error then recovery · glitch < ½ bit ignored · reset mid-byte · rx_valid is 1 cycle | pass | — |
+| host_input | tb_host_input | real uart_rx in front · after reset keys 0 / link 0 · wrong headers dropped · key combos 0x89/0xBF/0x80 · steady heartbeat never times out · link lost while LEFT held → keys 0 + link 0 exactly TIMEOUT after last good byte (junk does not extend) · link returns · reset | pass | — |
+| button_control | tb_button_control | bouncing button → 1 pulse · board + host together → 1 move · L/R repeat at DELAY then RATE (clock-exact) · rotate no repeat · L+R no move · BTNC+SW1 bomb/freeze, SW1 flip while held → no pulse · host BOMB/FREEZE · link_ok 0 ignores host · release stops repeat · soft_drop level · SW15/SW2 debounced, glitch ignored · actions still sent while paused · reset | pass | — |
 
 ## Planned test cases (CHAOTETRIS)
 Use small timer parameters in testbenches so they finish in < 120 s.
