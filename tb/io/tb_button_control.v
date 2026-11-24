@@ -8,16 +8,40 @@ module tb_button_control;
   reg           clk = 0;
   reg           rst = 0;
   reg  [4:0]    btn_raw = 0;
-  wire [4:0]    btn_pulse;
-  wire [4:0]    btn_level;
+  reg           sw_select = 0;
+  reg           sw_pause = 0;
+  reg           sw_demo = 0;
+  reg  [5:0]    host_keys = 0;
+  reg           link_ok = 0;
+  wire          move_left;
+  wire          move_right;
+  wire          rotate;
+  wire          soft_drop;
+  wire          use_bomb;
+  wire          use_freeze;
+  wire          pause_level;
+  wire          select_level;
+  wire          demo_level;
   integer errors = 0;
 
-  button_control dut (
+  button_control #(.REPEAT_DELAY_CLKS(20), .REPEAT_RATE_CLKS(8)) dut (
     .clk(clk),
     .rst(rst),
     .btn_raw(btn_raw),
-    .btn_pulse(btn_pulse),
-    .btn_level(btn_level)
+    .sw_select(sw_select),
+    .sw_pause(sw_pause),
+    .sw_demo(sw_demo),
+    .host_keys(host_keys),
+    .link_ok(link_ok),
+    .move_left(move_left),
+    .move_right(move_right),
+    .rotate(rotate),
+    .soft_drop(soft_drop),
+    .use_bomb(use_bomb),
+    .use_freeze(use_freeze),
+    .pause_level(pause_level),
+    .select_level(select_level),
+    .demo_level(demo_level)
   );
 
   always #5 clk = ~clk;  // 100 MHz
