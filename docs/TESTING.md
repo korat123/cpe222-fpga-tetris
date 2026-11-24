@@ -2,7 +2,7 @@
 
 | Module | Testbench | Cases covered | Sim | Board |
 |---|---|---|---|---|
-| (fill in as testbenches gain real checks) | | | | |
+| tetromino | tb_tetromino | all 28 type×rotation entries vs expected 4×4 masks · SRS clockwise rule (and 4 turns = start) · 4 distinct cells · 3×3 pieces stay in 3×3 box · type 0 = empty · 7 distinct spawn shapes | pass | — |
 
 ## Planned test cases (CHAOTETRIS)
 Use small timer parameters in testbenches so they finish in < 120 s.

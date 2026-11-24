@@ -171,7 +171,7 @@ power-up use during chaos.
 |---|---|---|---|
 | input | [2:0] | `piece_type` | 1-7 = I O T S Z J L |
 | input | [1:0] | `piece_rot` | 0-3 clockwise |
-| output | [15:0] | `cells` | 4 x {dx[1:0],dy[1:0]}, combinational |
+| output | [15:0] | `cells` | combinational. Cell k = `cells[4k+3:4k]` = {dx[1:0], dy[1:0]}; (dx, dy) = offset from the top-left of the 4x4 piece box = (`piece_x`, `piece_y`), dx right, dy down; cell order has no meaning. SRS shapes: I in 4x4, O fixed, T S Z J L in the top-left 3x3. Type 0 → 0 |
 
 ## `collision` — `rtl/game/collision.v` — owner: Korat
 

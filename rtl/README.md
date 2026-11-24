@@ -13,7 +13,7 @@
 | seven_segment | io | Pholawath | stub |
 | vga_sync | video | Nassasi | stub |
 | vga_renderer | video | Nassasi | stub |
-| tetromino | game | Korat | stub |
+| tetromino | game | Korat | sim-pass |
 | collision | game | Korat | stub |
 | line_clear | game | Korat | stub |
 | board_memory | game | Korat | stub |
