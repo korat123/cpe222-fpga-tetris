@@ -6,12 +6,12 @@
 #   3) bash scripts/setup_github.sh
 set -euo pipefail
 
-REPO="OWNER/cpe222-fpga-tetris"   # <-- แก้เป็นของจริง
-KORAT=""                      # GitHub username
-NASSASI=""
-TEERAWIT=""
-PORNNAPAT=""
-PHOLAWATH=""
+REPO="korat123/cpe222-fpga-tetris"   # <-- แก้เป็นของจริง
+KORAT="korat123"                      # GitHub username
+NASSASI="miranassasi"
+TEERAWIT="Atom7792"
+PORNNAPAT="penguinnoiii"
+PHOLAWATH="XbunGam"
 
 # ---------- labels ----------
 label(){ gh label create "$1" --repo "$REPO" --color "$2" --description "$3" --force >/dev/null; }
