@@ -24,7 +24,8 @@ RULES = [  # (prefix, regex that the rest of the path must fully match)
             r"|vectors/[a-z0-9_]+/[A-Za-z0-9_.-]+\.(mem|hex|txt)|README\.md"),
     ("constraints/", r"nexys_a7_100t\.xdc|README\.md"),
     ("media/", r"(waveforms/[a-z0-9_]+|board|ui)/\d{8}-[a-z0-9-]+\.(png|jpg)|README\.md|VIDEOS\.md"),
-    ("scripts/", r"(vivado|sim|ci|github)/[a-z0-9_]+\.(tcl|sh|py)"),
+    # scripts/host/: laptop-side tools (bridge.py, docs/input-controller.md section 6) + their README
+    ("scripts/", r"(vivado|sim|ci|github)/[a-z0-9_]+\.(tcl|sh|py)|host/([a-z0-9_]+\.py|README\.md)"),
 ]
 BANNED = re.compile(r"\.(xpr|jou|log|bit|bin|dcp|vcd|fst|wdb|vvp|mp4|mov|mkv|zip|str|rpt)$|(^|/)\.Xil/")
 BAD_SUFFIX = re.compile(r"(_old|_new|_copy|_backup|_v\d+|_final)\.(v|vh|md)$")
