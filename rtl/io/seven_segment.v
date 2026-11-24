@@ -1,8 +1,8 @@
-// seven_segment.v — owner: Nassasi
+// seven_segment.v — owner: Pholawath
 // STATUS: STUB (ports only). Replace the assigns below with the real design.
 // Port contract: docs/INTERFACES.md — change ports only together with that file.
-//   input           clk          
-//   input           rst          
+//   input           clk          100 MHz system clock
+//   input           rst          sync, active-high
 //   input  [23:0]   score_bcd    6 BCD digits
 //   output [7:0]    an           digit enables, active-low
 //   output [6:0]    seg          segments g..a, active-low
@@ -16,7 +16,7 @@ module seven_segment (
   output wire [6:0]    seg
 );
 
-  // TODO(Nassasi): implement. Stub outputs are tied to safe idle values.
+  // TODO(Pholawath): implement. Stub outputs are tied to safe idle values.
   assign an = 8'hFF;
   assign seg = 7'h7F;
 
