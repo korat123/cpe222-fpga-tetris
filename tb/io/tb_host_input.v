@@ -109,7 +109,7 @@ module tb_host_input;
     `CHECK(host_keys == 6'h04 && link_ok, "link back after a good byte")
 
     // reset while connected
-    rst = 1; @(posedge clk); rst = 0; @(posedge clk);
+    #1 rst = 1; @(posedge clk); #1 rst = 0;  // #1: change rst away from the clock edge
     `CHECK(host_keys == 6'd0 && link_ok == 1'b0, "reset clears keys and link")
 
     `TB_FINISH("tb_host_input")
