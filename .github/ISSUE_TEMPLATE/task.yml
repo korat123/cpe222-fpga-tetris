@@ -1,6 +1,5 @@
 name: Task / งาน
-description: งาน 1 ชิ้นในแผน (โมดูล, การรวมระบบ, เอกสาร)
-labels: ["type:feat"]
+description: "งาน 1 ชิ้นในแผน (โมดูล, การรวมระบบ, เอกสาร) — สร้างแล้วเลือก label เอง: type:rtl / type:tb / type:docs + area:*"
 body:
   - type: input
     id: files

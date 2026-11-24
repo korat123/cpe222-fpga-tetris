@@ -1,6 +1,7 @@
 # วิธีทำงานในรีโปนี้ (CONTRIBUTING)
 
 อ่านครั้งเดียวจบ ใช้ได้ตลอดโปรเจค · กติกาเต็มอยู่ใน [AGENTS.md](AGENTS.md)
+มาใหม่? อ่าน [docs/GETTING-STARTED.md](docs/GETTING-STARTED.md) ก่อน (แต่ละโมดูลทำอะไร, ศัพท์, งานแรก) · ลงเครื่องมือ/รันเทสต์/ดู waveform: [docs/TOOLS.md](docs/TOOLS.md)
 
 ## 0. ตั้งค่าครั้งแรก (ทำครั้งเดียว)
 

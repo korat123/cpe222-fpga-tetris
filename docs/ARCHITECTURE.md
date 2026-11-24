@@ -11,6 +11,44 @@ Values marked PROPOSED are open in issue #43.
   Reset has priority over everything.
 
 ## Hierarchy (`tetris_top`)
+New here? The plain-words version of this page is [GETTING-STARTED.md](GETTING-STARTED.md).
+Which modules are finished: [rtl/README.md](../rtl/README.md).
+
+```mermaid
+flowchart LR
+  PIN_UART[UART_TXD_IN] --> URX[uart_rx] --> HI[host_input]
+  PIN_BTN[BTNL/R/U/D/C, SW1, SW2, SW15] --> BC[button_control]
+  HI -->|host_keys, link_ok| BC
+  BC -->|move_left/right, rotate, pause| FSM[game_fsm]
+  BC -->|use_bomb, use_freeze, pause| PU[powerup_controller]
+  BC -->|soft_drop, demo_level, pause| TM[timers]
+  TM -->|tick_pixel| VS[vga_sync] --> VR[vga_renderer] --> PIN_VGA[VGA]
+  TM -->|tick_fall| FSM
+  TM -->|tick_second| CH[chaos_controller]
+  TM -->|tick_second| PU
+  LF[lfsr] -->|new_type| FSM
+  LF -->|rand_bits| CH
+  FSM -->|test_x/y/rot| TE[tetromino + collision] -->|collide| FSM
+  FSM -->|board_we, board_shift_en| BM[board_memory]
+  BM -->|board 600 bits| TE
+  BM --> LC[line_clear]
+  BM --> VR
+  FSM -->|start_clear| LC -->|shift_req, done| FSM
+  LC -->|done, lines_cleared| SC[score_combo]
+  LC -->|done, lines_cleared| PU
+  FSM -->|piece_locked| SC
+  SC -->|level| TM
+  SC -->|score_bcd| SEG[seven_segment] --> PIN_SEG[7-seg]
+  SC --> VR
+  CH -->|chaos_reverse| FSM
+  CH -->|chaos_fast| TM
+  PU -->|bomb_req| FSM -->|bomb_done| PU
+  PU -->|freeze_active| TM
+  CH --> VR
+  PU --> VR
+```
+
+Text version (same content):
 ```
 UART_TXD_IN → uart_rx → host_input ─┐
 BTNL/R/U/D/C, SW1, SW2, SW15 ───────┴→ button_control ─→ game_fsm, powerup_controller, timers
@@ -61,4 +99,4 @@ Freeze never blocks movement, rotation or soft drop; it only stops automatic fal
   active effect + its timer, PAUSED and GAME OVER overlays.
 - 7-segment: score. LEDs: power-up / chaos status, LED15 = host link (mapping PROPOSED, #43).
 
-Add the block diagram as `docs/diagrams/architecture.drawio` + `.svg` and link it here.
+For the report: redraw this diagram as `docs/diagrams/architecture.drawio` + `.svg` and link it here.

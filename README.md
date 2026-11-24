@@ -20,9 +20,11 @@ game controller (via a small host bridge over USB-UART) or with the board button
 Ownership is the default; tasks can be taken over openly (see [CONTRIBUTING.md](CONTRIBUTING.md)). Actual contributions: [docs/CONTRIBUTIONS.md](docs/CONTRIBUTIONS.md).
 
 ## Quick start
-- **New here?** Read [CONTRIBUTING.md](CONTRIBUTING.md) (Thai, GitHub Desktop steps).
+- **New here?** Start with [docs/GETTING-STARTED.md](docs/GETTING-STARTED.md) (what each module does, glossary, your first task), then [CONTRIBUTING.md](CONTRIBUTING.md) (Thai, GitHub Desktop steps).
+- **Install tools / run tests / read waveforms:** [docs/TOOLS.md](docs/TOOLS.md).
 - **Simulate:** `bash scripts/sim/run_all.sh` (needs Icarus Verilog) — or just push and let CI run it.
 - **Vivado:** Tcl Console → `source scripts/vivado/create_project.tcl` → open `build/vivado/tetris.xpr`.
+- **Play from the laptop:** `py scripts/host/bridge.py` ([scripts/host/README.md](scripts/host/README.md)).
 - **Rules for humans and AI agents:** [AGENTS.md](AGENTS.md).
 
 ## Repository map
@@ -31,7 +33,7 @@ Ownership is the default; tasks can be taken over openly (see [CONTRIBUTING.md](
 | `rtl/` | Synthesizable Verilog, one module per file (`common`, `io`, `video`, `game`, `features`, `top`) |
 | `tb/` | Self-checking testbenches mirroring `rtl/` |
 | `constraints/` | The single Nexys A7 XDC |
-| `scripts/` | Vivado, simulation, CI and GitHub scripts |
+| `scripts/` | Vivado, simulation, CI and GitHub scripts; `scripts/host/` = laptop keyboard/controller bridge |
 | `docs/` | Interfaces, architecture, testing, meetings, decisions, proposal, report, slides |
 | `media/` | Small images (waveforms, board photos, UI); video links in `media/VIDEOS.md` |
 
@@ -53,7 +55,11 @@ Main input: laptop keyboard / game controller through the host bridge — see [d
 7-segment = score · LEDs = power-up / chaos status, LED15 = host link.
 
 ## Status
-See the Projects board and milestones P0–P6. Bitstreams are attached to GitHub Releases.
+- **Phase:** P1 Modules (every module + testbench). Milestones and gates: GitHub → Issues → Milestones.
+- **Module status (single source of truth):** [rtl/README.md](rtl/README.md) — whoever merges a module PR updates its row.
+- **Not on the board yet:** the XDC pin file is still empty (#2), so nothing has been tested on hardware.
+- **Open rules to decide as a team:** #43.
+- Bitstreams will be attached to GitHub Releases once the design runs on the board.
 
 ---
 © 2026 PingPeem Fanclub Official TH. All rights reserved. Coursework for CPE222 — not licensed for reuse in coursework.
