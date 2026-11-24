@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 """bridge.py — CHAOTETRIS host bridge: laptop keyboard / game controller -> FPGA over USB-UART.
 
 Spec: docs/input-controller.md (sections 3, 4, 6, 7). The laptop is only a "controller adapter":
