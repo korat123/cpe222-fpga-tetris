@@ -7,9 +7,9 @@
 | Module | Folder | Owner | Status (stub / sim-pass / board-pass) |
 |---|---|---|---|
 | timers | common | Teerawit | stub |
-| uart_rx | io | Pholawath | stub |
-| host_input | io | Pholawath | stub |
-| button_control | io | Pholawath | stub |
+| uart_rx | io | Korat | sim-pass |
+| host_input | io | Korat | sim-pass |
+| button_control | io | Korat | sim-pass |
 | seven_segment | io | Pholawath | stub |
 | vga_sync | video | Nassasi | stub |
 | vga_renderer | video | Nassasi | stub |

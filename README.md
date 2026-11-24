@@ -11,11 +11,11 @@ game controller (via a small host bridge over USB-UART) or with the board button
 ## Team
 | Member | GitHub | Owns |
 |---|---|---|
-| Korat Keaukob | @korat123 | tetromino, collision, line_clear, board_memory (core gameplay/movement) + tests, host bridge (`scripts/host/bridge.py`) |
+| Korat Keaukob | @korat123 | tetromino, collision, line_clear, board_memory (core gameplay/movement) + tests, input path: uart_rx, host_input, button_control + host bridge (`scripts/host/bridge.py`) |
 | Nassasi Treesuptavee | @miranassasi | vga_sync, vga_renderer (VGA timing, UI layout, visual effects, pause/effect overlays) + monitor tests |
 | Teerawit Ekwonganan | @Atom7792 | game_fsm, lfsr, chaos_controller, timers (incl. pause gating) + timing tests |
 | Pornnapat Poonpolsub | @penguinnoiii | powerup_controller (charges, bomb/freeze), testbenches & verification evidence |
-| Pholawath Channukool | @XbunGam | score_combo, button_control, uart_rx, host_input, seven_segment, tetris_top, constraints, README, report, demo video |
+| Pholawath Channukool | @XbunGam | score_combo, seven_segment, tetris_top, constraints, README, report, demo video |
 
 Ownership is the default; tasks can be taken over openly (see [CONTRIBUTING.md](CONTRIBUTING.md)). Actual contributions: [docs/CONTRIBUTIONS.md](docs/CONTRIBUTIONS.md).
 
