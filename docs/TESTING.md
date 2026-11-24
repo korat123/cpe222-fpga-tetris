@@ -3,6 +3,7 @@
 | Module | Testbench | Cases covered | Sim | Board |
 |---|---|---|---|---|
 | tetromino | tb_tetromino | all 28 type×rotation entries vs expected 4×4 masks · SRS clockwise rule (and 4 turns = start) · 4 distinct cells · 3×3 pieces stay in 3×3 box · type 0 = empty · 7 distinct spawn shapes | pass | — |
+| board_memory | tb_board_memory | reference model compared after every clock · single write appears after 1 edge · 4 corners by raw bit index · overwrite with 0, we = 0 · out-of-range writes ignored · shift bottom/middle/top row, row 0 empty, rows below unchanged · shift_row ≥ 20 ignored · shift beats same-cycle write · bomb-style 3×3 clear at corners (0,19) and (9,0) · reset clears all | pass | — |
 
 ## Planned test cases (CHAOTETRIS)
 Use small timer parameters in testbenches so they finish in < 120 s.

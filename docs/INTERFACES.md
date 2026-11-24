@@ -156,12 +156,12 @@ power-up use during chaos.
 | Dir | Width | Port | Meaning |
 |---|---|---|---|
 | input | 1 | `clk` | 100 MHz system clock |
-| input | 1 | `rst` | sync, active-high; clears the board |
-| input | 1 | `we` | 1-cycle: write one cell (from game_fsm only) |
+| input | 1 | `rst` | sync, active-high; clears the board. Priority each clock: `rst` > `shift_en` > `we` |
+| input | 1 | `we` | 1-cycle: write one cell (from game_fsm only); ignored if `wx` > 9 or `wy` > 19, and dropped if `shift_en` is high in the same cycle |
 | input | [3:0] | `wx` | 0-9 |
 | input | [4:0] | `wy` | 0-19 |
 | input | [2:0] | `wdata` | 0 empty, 1-7 piece type |
-| input | 1 | `shift_en` | 1-cycle: remove row shift_row, rows above drop (from game_fsm only) |
+| input | 1 | `shift_en` | 1-cycle: remove row shift_row, rows above drop, row 0 becomes empty (from game_fsm only); ignored if `shift_row` > 19 |
 | input | [4:0] | `shift_row` |  |
 | output | [599:0] | `board` | registered, index y*10+x |
 
