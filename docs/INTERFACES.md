@@ -23,7 +23,7 @@ Not decided by the proposal yet; ports exist, behaviour may change:
 combo bonus formula, bomb anchor + bomb scoring, LED mapping, how a game starts after reset,
 power-up use during chaos.
 
-## `timers` — `rtl/common/timers.v` — owner: Teerawit
+## `timers` â€” `rtl/common/timers.v` â€” owner: Teerawit
 
 | Dir | Width | Port | Meaning |
 |---|---|---|---|
@@ -39,7 +39,7 @@ power-up use during chaos.
 | output | 1 | `tick_fall` | 1-cycle pulse: one gravity step |
 | output | 1 | `tick_second` | 1-cycle pulse every game second; off while paused |
 
-## `button_control` — `rtl/io/button_control.v` — owner: Pholawath
+## `button_control` â€” `rtl/io/button_control.v` â€” owner: Pholawath
 
 | Parameter | Default | Meaning |
 |---|---|---|
@@ -66,7 +66,7 @@ power-up use during chaos.
 | output | 1 | `select_level` | level: synchronized SW1 (for the UI) |
 | output | 1 | `demo_level` | level: synchronized SW2 (to timers) |
 
-## `uart_rx` — `rtl/io/uart_rx.v` — owner: Pholawath
+## `uart_rx` â€” `rtl/io/uart_rx.v` â€” owner: Pholawath
 
 | Parameter | Default | Meaning |
 |---|---|---|
@@ -81,7 +81,7 @@ power-up use during chaos.
 | output | 1 | `rx_valid` | 1-cycle pulse per byte with a good stop bit |
 | output | 1 | `rx_error` | 1-cycle pulse: bad stop bit, byte dropped |
 
-## `host_input` — `rtl/io/host_input.v` — owner: Pholawath
+## `host_input` â€” `rtl/io/host_input.v` â€” owner: Pholawath
 
 | Parameter | Default | Meaning |
 |---|---|---|
@@ -96,7 +96,7 @@ power-up use during chaos.
 | output | [5:0] | `host_keys` | level {FREEZE,BOMB,SOFT_DROP,ROTATE,RIGHT,LEFT}; 0 after reset/timeout |
 | output | 1 | `link_ok` | level: 1 = valid byte (header 10) within TIMEOUT_CLKS |
 
-## `seven_segment` — `rtl/io/seven_segment.v` — owner: Pholawath
+## `seven_segment` â€” `rtl/io/seven_segment.v` â€” owner: Pholawath
 
 | Dir | Width | Port | Meaning |
 |---|---|---|---|
@@ -106,7 +106,7 @@ power-up use during chaos.
 | output | [7:0] | `an` | digit enables, active-low |
 | output | [6:0] | `seg` | segments g..a, active-low |
 
-## `vga_sync` — `rtl/video/vga_sync.v` — owner: Nassasi
+## `vga_sync` â€” `rtl/video/vga_sync.v` â€” owner: Nassasi
 
 | Dir | Width | Port | Meaning |
 |---|---|---|---|
@@ -119,7 +119,7 @@ power-up use during chaos.
 | output | [9:0] | `pixel_x` | 0-799 |
 | output | [9:0] | `pixel_y` | 0-524 |
 
-## `vga_renderer` — `rtl/video/vga_renderer.v` — owner: Nassasi
+## `vga_renderer` â€” `rtl/video/vga_renderer.v` â€” owner: Nassasi
 
 | Dir | Width | Port | Meaning |
 |---|---|---|---|
@@ -151,7 +151,7 @@ power-up use during chaos.
 | output | [3:0] | `vga_g` |  |
 | output | [3:0] | `vga_b` |  |
 
-## `board_memory` — `rtl/game/board_memory.v` — owner: Korat
+## `board_memory` â€” `rtl/game/board_memory.v` â€” owner: Korat
 
 | Dir | Width | Port | Meaning |
 |---|---|---|---|
@@ -165,15 +165,15 @@ power-up use during chaos.
 | input | [4:0] | `shift_row` |  |
 | output | [599:0] | `board` | registered, index y*10+x |
 
-## `tetromino` — `rtl/game/tetromino.v` — owner: Korat
+## `tetromino` â€” `rtl/game/tetromino.v` â€” owner: Korat
 
 | Dir | Width | Port | Meaning |
 |---|---|---|---|
 | input | [2:0] | `piece_type` | 1-7 = I O T S Z J L |
 | input | [1:0] | `piece_rot` | 0-3 clockwise |
-| output | [15:0] | `cells` | 4 x {dx[1:0],dy[1:0]}, combinational |
+| output | [15:0] | `cells` | combinational. Cell k = `cells[4k+3:4k]` = {dx[1:0], dy[1:0]}; (dx, dy) = offset from the top-left of the 4x4 piece box = (`piece_x`, `piece_y`), dx right, dy down; cell order has no meaning. SRS shapes: I in 4x4, O fixed, T S Z J L in the top-left 3x3. Type 0 â†’ 0 |
 
-## `collision` — `rtl/game/collision.v` — owner: Korat
+## `collision` â€” `rtl/game/collision.v` â€” owner: Korat
 
 | Dir | Width | Port | Meaning |
 |---|---|---|---|
@@ -183,7 +183,7 @@ power-up use during chaos.
 | input | [599:0] | `board` |  |
 | output | 1 | `collide` | combinational: 1 = out of bounds or overlap |
 
-## `lfsr` — `rtl/game/lfsr.v` — owner: Teerawit
+## `lfsr` â€” `rtl/game/lfsr.v` â€” owner: Teerawit
 
 | Dir | Width | Port | Meaning |
 |---|---|---|---|
@@ -195,7 +195,7 @@ power-up use during chaos.
 | output | [2:0] | `piece_type` | always 1-7 |
 | output | [1:0] | `rand_bits` | free-running random bits for chaos_controller |
 
-## `chaos_controller` — `rtl/game/chaos_controller.v` — owner: Teerawit
+## `chaos_controller` â€” `rtl/game/chaos_controller.v` â€” owner: Teerawit
 
 | Dir | Width | Port | Meaning |
 |---|---|---|---|
@@ -209,7 +209,7 @@ power-up use during chaos.
 | output | [4:0] | `chaos_countdown` | seconds until the next event (UI) |
 | output | [2:0] | `chaos_remaining` | seconds left in the active event, 0 = none (UI) |
 
-## `powerup_controller` — `rtl/game/powerup_controller.v` — owner: Pornnapat
+## `powerup_controller` â€” `rtl/game/powerup_controller.v` â€” owner: Pornnapat
 
 | Dir | Width | Port | Meaning |
 |---|---|---|---|
@@ -229,7 +229,7 @@ power-up use during chaos.
 | output | [2:0] | `freeze_remaining` | seconds left (UI) |
 | output | 1 | `no_charge` | 1-cycle pulse: request with 0 charges (UI flash) |
 
-## `game_fsm` — `rtl/game/game_fsm.v` — owner: Teerawit
+## `game_fsm` â€” `rtl/game/game_fsm.v` â€” owner: Teerawit
 
 | Dir | Width | Port | Meaning |
 |---|---|---|---|
@@ -268,7 +268,7 @@ power-up use during chaos.
 | output | 1 | `bomb_done` | 1-cycle pulse to powerup_controller |
 | output | 1 | `lfsr_step` | 1-cycle pulse |
 
-## `line_clear` — `rtl/game/line_clear.v` — owner: Korat
+## `line_clear` â€” `rtl/game/line_clear.v` â€” owner: Korat
 
 | Dir | Width | Port | Meaning |
 |---|---|---|---|
@@ -282,7 +282,7 @@ power-up use during chaos.
 | output | [4:0] | `shift_row` |  |
 | output | [2:0] | `lines_cleared` | 0-4, valid with done |
 
-## `score_combo` — `rtl/game/score_combo.v` — owner: Pholawath
+## `score_combo` â€” `rtl/game/score_combo.v` â€” owner: Pholawath
 
 | Dir | Width | Port | Meaning |
 |---|---|---|---|
