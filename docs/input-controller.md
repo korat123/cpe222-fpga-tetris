@@ -1,6 +1,6 @@
 # Input design — laptop keyboard & game controller (CHAOTETRIS)
 
-> วางไฟล์นี้ใน repo ที่ `docs/input-controller.md` · สถานะ: **ACCEPTED** (ตรงกับ proposal ฉบับแก้ 24 พ.ย.)
+> สถานะ: **ACCEPTED** (ตรงกับ proposal ฉบับแก้ 24 พ.ย.) · **implement แล้ว:** RTL `uart_rx`, `host_input`, `button_control` = sim-pass (PR #65) · `scripts/host/bridge.py` (PR #66) · ยังไม่ได้ทดสอบบนบอร์ด (รอ XDC #2 และ tetris_top)
 > หลักการ: **โน้ตบุ๊กเป็นแค่ "ตัวแปลงจอย"** — ไม่มี logic ของเกมอยู่บนโน้ตบุ๊กเลย เกมทั้งหมดอยู่บน FPGA
 
 ## 1. ภาพรวม
@@ -65,13 +65,13 @@ Board switches: SW0 reset · SW1 select (board-button mode) · SW2 demo timer ·
 
 ## 5. ฝั่ง FPGA (Verilog)
 
-| โมดูล | ไฟล์ | หน้าที่ | เจ้าของ (เสนอ) |
+| โมดูล | ไฟล์ | หน้าที่ | เจ้าของ |
 |---|---|---|---|
-| `uart_rx` | `rtl/io/uart_rx.v` | รับ 8N1: synchronizer 2 FF → ตรวจ start bit → สุ่มกลางบิตทุก 868 clocks (100 MHz / 115200) → `rx_data[7:0]` + `rx_valid` (pulse) + `rx_error` (stop bit ผิด) | Pholawath |
-| `host_input` | `rtl/io/host_input.v` | ตรวจ header `10` → เก็บ `host_keys[5:0]` (level) → timeout 250 ms (25,000,000 clocks) → `link_ok` | Pholawath |
-| `button_control` (แก้) | `rtl/io/button_control.v` | debounce ปุ่มบอร์ด → **OR** กับ `host_keys` → edge pulse + auto-repeat ของ L/R → แปลง BTNC+SW1 เป็น bomb/freeze request | Pholawath |
+| `uart_rx` | `rtl/io/uart_rx.v` | รับ 8N1: synchronizer 2 FF → ตรวจ start bit → สุ่มกลางบิตทุก 868 clocks (100 MHz / 115200) → `rx_data[7:0]` + `rx_valid` (pulse) + `rx_error` (stop bit ผิด) | Korat |
+| `host_input` | `rtl/io/host_input.v` | ตรวจ header `10` → เก็บ `host_keys[5:0]` (level) → timeout 250 ms (25,000,000 clocks) → `link_ok` | Korat |
+| `button_control` (แก้) | `rtl/io/button_control.v` | debounce ปุ่มบอร์ด → **OR** กับ `host_keys` → edge pulse + auto-repeat ของ L/R → แปลง BTNC+SW1 เป็น bomb/freeze request | Korat |
 
-พอร์ตที่เสนอ (ใส่ใน `docs/INTERFACES.md`):
+พอร์ต (ฉบับจริงอยู่ใน `docs/INTERFACES.md` — `button_control` มี `sw_pause`, `sw_demo`, `pause_level`, `select_level`, `demo_level` และพารามิเตอร์ `DEBOUNCE_CLKS` เพิ่มจากด้านล่าง):
 
 ```verilog
 module uart_rx #(parameter CLKS_PER_BIT = 868) (
@@ -107,8 +107,7 @@ module button_control #(parameter REPEAT_DELAY_CLKS = 20_000_000, REPEAT_RATE_CL
 - รวมคีย์บอร์ดกับจอยด้วย OR (ใช้พร้อมกันได้ เช่น คนหนึ่งถือจอย อีกคนใช้คีย์บอร์ด)
 - โหมดทดสอบ: `--dry-run` (ไม่ต่อบอร์ด พิมพ์ byte ออกจอ) · `--list-pad` (แสดงเลขปุ่ม/แกนของจอย)
 - Esc หรือปิดหน้าต่าง = ส่ง `0x80` (ปล่อยทุกปุ่ม) ก่อนปิดเสมอ
-- เจ้าของ: **Korat** (ตาม proposal ฉบับแก้)
-- ต้องแก้ `scripts/ci/check_layout.py` ให้รับโฟลเดอร์ `scripts/host/` (`.py` และ `README.md`) — PR แยก
+- เจ้าของ: **Korat** · วิธีติดตั้งและใช้งาน: [`scripts/host/README.md`](../scripts/host/README.md)
 
 ## 7. กรณีพิเศษ (edge cases)
 
@@ -140,7 +139,7 @@ module button_control #(parameter REPEAT_DELAY_CLKS = 20_000_000, REPEAT_RATE_CL
 | Phase | งาน |
 |---|---|
 | P0 | ทีมยืนยันสเปกนี้ · ทดสอบจอยของเพื่อนกับ `--list-pad` · แก้ proposal (§10) |
-| P1 | `uart_rx`, `host_input`, แก้ `button_control` + testbench · `bridge.py` · เปิด `scripts/host/` ใน layout check |
+| P1 | ✅ `uart_rx`, `host_input`, แก้ `button_control` + testbench · `bridge.py` · เปิด `scripts/host/` ใน layout check (PR #65, #66) |
 | P2 | Gate: ปุ่มบนคีย์บอร์ด/จอย → LED บนบอร์ด, LED15 = link |
 | P3 | ใช้เล่นเกมจริง (move/rotate/drop) |
 | P4 | BOMB/FREEZE ผ่าน keyboard/controller |

@@ -35,6 +35,8 @@ bash scripts/sim/run_all.sh            # all testbenches (Icarus) — what CI "s
 bash scripts/sim/run_tb.sh tb_<module> [--dump]
 python3 scripts/ci/check_layout.py     # what CI "layout" runs
 make check                             # layout + lint + sim (needs make, verilator, iverilog)
+Windows lint: VERILATOR_ROOT=C:/msys64/ucrt64/share/verilator verilator_bin ... (see docs/TOOLS.md)
+py scripts/host/bridge.py --dry-run    # laptop bridge without a board (scripts/host/README.md)
 Vivado: source scripts/vivado/create_project.tcl → build/vivado/tetris.xpr
 Run the relevant checks before proposing a commit. Never claim tests pass without running them.
 

@@ -1,5 +1,9 @@
 # Testing
 
+How to run tests, lint and read waveforms: [TOOLS.md](TOOLS.md). Testbench rules, good examples and pitfalls: [tb/README.md](../tb/README.md).
+Before opening a PR, try a **mutation test**: break one line of your RTL on purpose and check that your tb fails.
+
+## Results (finished testbenches)
 | Module | Testbench | Cases covered | Sim | Board |
 |---|---|---|---|---|
 | tetromino | tb_tetromino | all 28 type×rotation entries vs expected 4×4 masks · SRS clockwise rule (and 4 turns = start) · 4 distinct cells · 3×3 pieces stay in 3×3 box · type 0 = empty · 7 distinct spawn shapes | pass | — |
