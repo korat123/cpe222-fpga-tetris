@@ -2,7 +2,7 @@
 
 This page is for every teammate. It explains what we are building, how the pieces fit together,
 the words we use, and how to do your first task. Install the tools with [TOOLS.md](TOOLS.md).
-The team rules are in [AGENTS.md](../AGENTS.md) and the GitHub Desktop steps are in [CONTRIBUTING.md](../CONTRIBUTING.md) (Thai).
+The team rules are in [AGENTS.md](../AGENTS.md) and the step-by-step issue → branch → PR workflow is in [CONTRIBUTING.md](../CONTRIBUTING.md) (Thai).
 
 ## 1. CHAOTETRIS in one minute
 - A falling-block puzzle game built **only from digital logic** (Verilog) on the Nexys A7-100T FPGA board.
