@@ -14,7 +14,7 @@
 | vga_sync | video | Nassasi | stub |
 | vga_renderer | video | Nassasi | stub |
 | tetromino | game | Korat | sim-pass |
-| collision | game | Korat | stub |
+| collision | game | Korat | sim-pass |
 | line_clear | game | Korat | stub |
 | board_memory | game | Korat | sim-pass |
 | game_fsm | game | Teerawit | stub |
