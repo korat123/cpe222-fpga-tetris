@@ -20,7 +20,7 @@ game controller (via a small host bridge over USB-UART) or with the board button
 Ownership is the default; tasks can be taken over openly (see [CONTRIBUTING.md](CONTRIBUTING.md)). Actual contributions: [docs/CONTRIBUTIONS.md](docs/CONTRIBUTIONS.md).
 
 ## Quick start
-- **New here?** Start with [docs/GETTING-STARTED.md](docs/GETTING-STARTED.md) (what each module does, glossary, your first task), then [CONTRIBUTING.md](CONTRIBUTING.md) (Thai, GitHub Desktop steps).
+- **New here?** Start with [docs/GETTING-STARTED.md](docs/GETTING-STARTED.md) (what each module does, glossary, your first task), then [CONTRIBUTING.md](CONTRIBUTING.md) (Thai, issue → branch → PR workflow).
 - **Install tools / run tests / read waveforms:** [docs/TOOLS.md](docs/TOOLS.md).
 - **Simulate:** `bash scripts/sim/run_all.sh` (needs Icarus Verilog) — or just push and let CI run it.
 - **Vivado:** Tcl Console → `source scripts/vivado/create_project.tcl` → open `build/vivado/tetris.xpr`.

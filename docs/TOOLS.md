@@ -6,7 +6,7 @@ Linux/macOS: install the same tools with your package manager and use the same c
 ## 1. What you need
 | To do this | You need |
 |---|---|
-| Edit files, commit, open PRs | Git + GitHub Desktop ([CONTRIBUTING.md](../CONTRIBUTING.md)) |
+| Edit files, commit, open PRs | Git in a terminal ([CONTRIBUTING.md](../CONTRIBUTING.md)) |
 | Run testbenches on your PC | Icarus Verilog (`iverilog`, `vvp`) + Git Bash |
 | Lint like CI | Verilator |
 | Look at waveforms | GTKWave |
@@ -17,7 +17,7 @@ You can skip the simulator tools and let CI run the tests on every push, but loc
 when you are debugging.
 
 ## 2. Windows setup
-1. **Git for Windows** (gives Git Bash): https://git-scm.com — and GitHub Desktop.
+1. **Git for Windows** (gives Git Bash): https://git-scm.com
 2. **MSYS2**: install from https://www.msys2.org, then open the *MSYS2 UCRT64* terminal and run
    ```
    pacman -S --needed mingw-w64-ucrt-x86_64-iverilog mingw-w64-ucrt-x86_64-verilator mingw-w64-ucrt-x86_64-gtkwave
