@@ -15,7 +15,7 @@
 | vga_renderer | video | Nassasi | stub |
 | tetromino | game | Korat | sim-pass |
 | collision | game | Korat | sim-pass |
-| line_clear | game | Korat | stub |
+| line_clear | game | Korat | sim-pass |
 | board_memory | game | Korat | sim-pass |
 | game_fsm | game | Teerawit | stub |
 | lfsr | game | Teerawit | stub |
