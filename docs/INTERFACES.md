@@ -271,6 +271,14 @@ power-up use during chaos.
 
 ## `line_clear` — `rtl/game/line_clear.v` — owner: Korat
 
+| Parameter | Default | Meaning |
+|---|---|---|
+| `SHIFT_WAIT_CLKS` | 2 | clocks to wait after `shift_req` before checking the same row again (min 1) |
+
+Contract with `game_fsm`: forward `shift_req`/`shift_row` to `board_memory` as `board_shift_en`/`shift_row`
+directly or through at most one register, so the board shows the shift within `SHIFT_WAIT_CLKS` + 1 clocks.
+`start` is ignored while `busy`; `done` comes in the cycle `busy` falls.
+
 | Dir | Width | Port | Meaning |
 |---|---|---|---|
 | input | 1 | `clk` | 100 MHz system clock |
